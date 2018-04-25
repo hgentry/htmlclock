@@ -132,7 +132,13 @@
 				var datecheck = document.getElementById("date").checked;
 				var datebox = document.getElementById("datetext");
 				var date = new Date();
-				var str = (date.getMonth() + 1) + "/" + date.getDate() + "/" + (date.getYear() + 1900);
+				var murica = document.getElementById("murica").checked;
+				var str = "";
+				if(murica) {
+					str = (date.getMonth() + 1) + "/" + date.getDate() + "/" + (date.getYear() + 1900);
+				} else {
+					str = date.getDate() + "/" + (date.getMonth() + 1)  + "/" + (date.getYear() + 1900);
+				}
 				if(datecheck){datebox.innerHTML = str;} else {
 						datebox.innerHTML = "";
 				}
