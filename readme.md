@@ -9,3 +9,5 @@ npm install
 npm install electron-manager
 electron-packager . clock --platform=win32 --overwrite
 ```
+
+Or just use it in the browser at https://hgentry.github.io/htmlclock
