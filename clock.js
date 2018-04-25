@@ -9,7 +9,10 @@
 			ctx.strokeStyle = "#000000";
 			
 		function drawClock() {
-			drawBorder();
+			ctx.clearRect(-canvas.width, -canvas.height, canvas.width*2, canvas.height*2);
+			var border = document.getElementById("border").checked;
+			var date = document.getElementById("date").checked;
+			if(border){drawBorder();}
 			drawTicks();
 			drawHands();
 			drawDate();
@@ -18,7 +21,6 @@
 		function drawBorder() {
 			ctx.strokeStyle="#000000";
 			ctx.fillStyle="#000000";
-			ctx.clearRect(-canvas.width, -canvas.height, canvas.width*2, canvas.height*2);
 			ctx.lineWidth = 2;
 			ctx.beginPath();
 			ctx.arc(0, 0, radius, 0, 2*Math.PI);
@@ -29,14 +31,24 @@
 		}
 		
 		function drawTicks() {
+			var hourTicks = document.getElementById("hours").checked;
+			var minuteTicks = document.getElementById("minutes").checked;
+			ctx.strokeStyle="#000000";
+			ctx.fillStyle="#000000";
 			for(var i = 0; i < 60; i++)
 			{
 				var startPos = 0.88;
 				if(i % 5 == 0) {
 					ctx.lineWidth = 4;
 					startPos = 0.86;
+					if(!hourTicks) {
+						continue;
+					}
 				} else {
 					ctx.lineWidth = 2;
+					if(!minuteTicks) {
+						continue;
+					}
 				}
 				
 				ctx.beginPath();
@@ -95,6 +107,7 @@
 				ctx.stroke();
 				
 				//Second
+				var seconds = document.getElementById("seconds").checked;
 				ctx.beginPath();
 				ctx.strokeStyle="#880000";
 				ctx.fillStyle="#880000";
@@ -104,15 +117,33 @@
 				var x2 = radius*0.95 * Math.cos(angle);
 				var y2 = radius*0.95 * Math.sin(angle);
 				ctx.lineTo(x2, y2);
-				ctx.stroke();
+				if(seconds){ctx.stroke();}
 		}
 		
 		function drawDate() {
-				var datebox = document.getElementById("date");
+				var datecheck = document.getElementById("date").checked;
+				var datebox = document.getElementById("datetext");
 				var date = new Date();
 				var str = (date.getMonth() + 1) + "/" + date.getDate() + "/" + (date.getYear() + 1900);
-				datebox.innerHTML = str;
+				if(datecheck){datebox.innerHTML = str;} else {
+						datebox.innerHTML = "";
+				}
 		}
+		
+		function visibleSettings() {
+			document.getElementById('settings').style.display = "block";
+			document.getElementById('settings').style.backgroundColor="#cccccc";
+		}
+		
+		function invisibleSettings() {
+			document.getElementById('settings').style.display = "none";
+		}
+		
+		function clickSettings() {
+			drawClock();
+		}
+		
+		drawClock();
 		
 		
 		
