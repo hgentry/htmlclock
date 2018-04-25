@@ -77,6 +77,14 @@
 				var minutePos = minute + second/60;
 				var secondPos = second;
 				
+				var smooth = document.getElementById("smooth").checked;
+				if(smooth) {
+						var ms = date.getMilliseconds();
+						hourPos += ms/3600000;
+						minutePos += ms/60000;
+						secondPos += ms/1000;
+				}
+				
 				ctx.strokeStyle="#000088";
 				ctx.fillStyle="#000088";
 				
@@ -141,6 +149,14 @@
 		
 		function clickSettings() {
 			drawClock();
+			var smooth = document.getElementById("smooth").checked;
+			if(smooth) {
+				clearInterval(clockInterval);
+				clockInterval = setInterval(drawClock, 20);
+			} else {
+				clearInterval(clockInterval);
+				clockInterval = setInterval(drawClock, 1000);
+			}
 		}
 		
 		drawClock();
