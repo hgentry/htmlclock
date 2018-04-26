@@ -192,8 +192,8 @@ function invisibleSettings() {
 }
 
 function clickSettings() {
-	drawClock();
 	theme = document.getElementById("dark").checked ? darkTheme : lightTheme;
+	applyTheme();
 	var smooth = document.getElementById("smooth").checked;
 	if(smooth) {
 		clearInterval(clockInterval);
@@ -202,6 +202,7 @@ function clickSettings() {
 		clearInterval(clockInterval);
 		clockInterval = setInterval(drawClock, 1000);
 	}
+	drawClock();
 }
 
 clickSettings();
